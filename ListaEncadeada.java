@@ -38,6 +38,7 @@ public class ListaEncadeada {
 	public void addInicio (Conta c) {
 		if (cabeca == null) {
 			cabeca = c;
+			ultimoElemento =c;
 		} else {
 		c.setProximo(cabeca);
 		cabeca = c;
@@ -60,8 +61,9 @@ public class ListaEncadeada {
 	
 	public void addFinal (Conta c) {
 		ultimoElemento.setProximo(c);
+		ultimoElemento = c;
+		inseridos++;
 	}
-	
 	
 	
 	public List<Conta> buscarContasEncadeada(String titular) {
