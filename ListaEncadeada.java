@@ -5,14 +5,20 @@ import java.util.List;
 
 public class ListaEncadeada {
 
-	private List<Conta> contas;
+	private Conta contas;
 	private Conta cabeca;
+	private Conta ultimoElemento;
 	private int inseridos;
 	
-	public List<Conta> getContas() {
+	@Override
+	public String toString() {
+		return "ListaEncadeada [contas=" + contas + "]";
+	}
+	
+	public Conta getContas() {
 		return contas;
 	}
-	public void setContas(List<Conta> contas) {
+	public void setContas(Conta contas) {
 		this.contas = contas;
 	}
 	public Conta getCabeca() {
@@ -39,18 +45,24 @@ public class ListaEncadeada {
 		inseridos++;
 	}
 	
+//	public void addFinal (Conta c) {
+//		if (cabeca == null) {
+//			cabeca = c;
+//		} else {
+//			Conta temp = cabeca;
+//			while (temp.getProximo() != null) {
+//				temp = temp.getProximo();
+//			}
+//			temp.setProximo(c);
+//			inseridos++;
+//		}
+//	}
+	
 	public void addFinal (Conta c) {
-		if (cabeca == null) {
-			cabeca = c;
-		} else {
-			Conta temp = cabeca;
-			while (temp.getProximo() != null) {
-				temp = temp.getProximo();
-			}
-			temp.setProximo(c);
-			inseridos++;
-		}
+		ultimoElemento.setProximo(c);
 	}
+	
+	
 	
 	public List<Conta> buscarContasEncadeada(String titular) {
 		
@@ -116,8 +128,27 @@ public class ListaEncadeada {
 		}
 		return temp;
 	}
-}
 
-	
-	
+	public void remover (Conta remover) {
+		Conta temp = cabeca;
+		if (cabeca == remover) {
+			cabeca = cabeca.getProximo();
+			inseridos--;
+		} else {
+		while (temp.getProximo() != null) {
+			if (temp.getProximo() == remover) {
+				if (temp.getProximo().getProximo() == null) {
+					temp.setProximo(null);
+				} else {
+					temp.setProximo(temp.getProximo().getProximo());
+					inseridos--;
+				}
+			}
+			if (temp.getProximo() != null) {
+			temp = temp.getProximo();
+			}
+		}
+	}
+}
+}
 	

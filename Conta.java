@@ -53,6 +53,14 @@ public class Conta {
 	public void setSenha(int senha) {
 		this.senha = senha;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Conta [nome=" + nome + "]";
+	}
+
+
 	
 	
 }
