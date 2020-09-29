@@ -5,6 +5,7 @@ public class Conta {
 	private int idade;
 	private int senha;
 	private Conta proximo;
+	private Conta Anterior;
 	
 	public Conta(String nome, int idade, int senha) {
 		super();
@@ -55,11 +56,14 @@ public class Conta {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Conta [nome=" + nome + "]";
+	public Conta getAnterior() {
+		return Anterior;
 	}
 
+
+	public void setAnterior(Conta anterior) {
+		Anterior = anterior;
+	}
 
 	
 	

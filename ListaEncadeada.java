@@ -10,11 +10,6 @@ public class ListaEncadeada {
 	private Conta ultimoElemento;
 	private int inseridos;
 	
-	@Override
-	public String toString() {
-		return "ListaEncadeada [contas=" + contas + "]";
-	}
-	
 	public Conta getContas() {
 		return contas;
 	}
@@ -34,16 +29,17 @@ public class ListaEncadeada {
 		this.inseridos = inseridos;
 	}
 	
-
 	public void addInicio (Conta c) {
-		if (cabeca == null) {
+		if (cabeca == null ) {
 			cabeca = c;
-			ultimoElemento =c;
+			ultimoElemento = c;
 		} else {
 		c.setProximo(cabeca);
+		cabeca.setAnterior(c);
 		cabeca = c;
 		}
 		inseridos++;
+
 	}
 	
 //	public void addFinal (Conta c) {
@@ -61,10 +57,26 @@ public class ListaEncadeada {
 	
 	public void addFinal (Conta c) {
 		ultimoElemento.setProximo(c);
+		c.setAnterior(ultimoElemento);
 		ultimoElemento = c;
 		inseridos++;
 	}
 	
+	public int size() {
+		return inseridos;
+	}
+	
+	public List<Conta> contasEncadeadas(){
+		List<Conta> listaNova = new ArrayList<>();
+		Conta temp = cabeca;
+	
+		while (temp != null)  {
+			listaNova.add(temp);
+			System.out.println(temp.getProximo());
+			temp = temp.getProximo();
+			}
+		return listaNova;	
+	}
 	
 	public List<Conta> buscarContasEncadeada(String titular) {
 		
@@ -78,10 +90,6 @@ public class ListaEncadeada {
 			temp = temp.getProximo();
 		}
 		return novasContas;
-	}
-	
-	public int size() {
-		return inseridos;
 	}
 	
 	public Conta search (Conta buscar) {
@@ -108,28 +116,28 @@ public class ListaEncadeada {
 	
 		}
 
-	public List<ListaEncadeada> split(int k){
-		List<ListaEncadeada> temp = new ArrayList<ListaEncadeada>();
-		int div = inseridos/k;
-		
-		if(k <= 1 || div < 1) {
-			ListaEncadeada le = new ListaEncadeada();
-			le.setCabeca(cabeca);
-			temp.add(le);
-		} else {
-			//caso ímpar, truca.
-			Conta use = cabeca;
-			for(int i = 0; i < k; i++) {
-				ListaEncadeada le = new ListaEncadeada();
-				le.setCabeca(use);
-				for(int j = 10; j < div; j++) {
-					use = use.getProximo();
-				}
-				temp.add(le);
-			}
-		}
-		return temp;
-	}
+//	public List<ListaEncadeada> split(int k){
+//		List<ListaEncadeada> temp = new ArrayList<ListaEncadeada>();
+//		int div = inseridos/k;
+//		
+//		if(k <= 1 || div < 1) {
+//			ListaEncadeada le = new ListaEncadeada();
+//			le.setCabeca(cabeca);
+//			temp.add(le);
+//		} else {
+//			//caso ímpar, truca.
+//			Conta use = cabeca;
+//			for(int i = 0; i < k; i++) {
+//				ListaEncadeada le = new ListaEncadeada();
+//				le.setCabeca(use);
+//				for(int j = 10; j < div; j++) {
+//					use = use.getProximo();
+//				}
+//				temp.add(le);
+//			}
+//		}
+//		return temp;
+//	}
 
 	public void remover (Conta remover) {
 		Conta temp = cabeca;
@@ -141,6 +149,7 @@ public class ListaEncadeada {
 			if (temp.getProximo() == remover) {
 				if (temp.getProximo().getProximo() == null) {
 					temp.setProximo(null);
+					inseridos--;
 				} else {
 					temp.setProximo(temp.getProximo().getProximo());
 					inseridos--;
